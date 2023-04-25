@@ -3,6 +3,7 @@
         <div class="n-header--bottom">
             <div class="container position-relative">
                 <div class="d-flex">
+
                     <div class="n-header--bottom__left d-flex align-items-center">
                         <a href="{{ route('donor.dashboard') }}" class="brand-logo">
                             <img src="{{ asset('assets/authfile/images/logo.png') }}" alt="">
@@ -58,6 +59,7 @@
                                     </div>
                                 </form>
                             </div>
+
                             <ul class="custom-border list-unstyled d-flex align-items-center justify-content-between">
                                 @if (Auth::user()->role == '1')
                                     Receiver
@@ -69,7 +71,7 @@
                                 @endif
 
                                 <li class="relative">
-                                    <a href="{{ route('donor.dashboard') }} " class="candidate-profile">
+                                    <a href="{{ route('profile.index') }} " class="candidate-profile">
                                         <img src="{{ asset('assets/authfile/images/profile_dummy.png') }}" alt="">
                                         {{-- @company
                                             <img src="{{ auth()->user()->company->logo_url }}" alt="">

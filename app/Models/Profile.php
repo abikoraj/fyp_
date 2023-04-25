@@ -13,4 +13,12 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function organization_type(){
+        return $this->belongsTo(OrganizationType::class);
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
 }

@@ -9,9 +9,22 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
+    public function index()
+    {
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+        if ($profile) {
+            return view('auth.profile.index', compact('profile'));
+        } else {
+            return redirect()->route('profile.add');
+        }
+    }
     public function add()
     {
-        return view('auth.profile.add');
+        if (Auth::user()->profile) {
+            return redirect()->route('profile.index');
+        } else {
+            return view('auth.profile.add');
+        }
     }
 
     public function submit(Request $request)
@@ -41,9 +54,15 @@ class ProfileController extends Controller
         $profile->latitude = $request->latitude;
         $profile->longitude = $request->longitude;
         if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
             $profile->image = $request->image->store('uploads/profile', 'public');
         }
         if ($request->hasFile('cover_image')) {
+            $request->validate([
+                'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
             $profile->cover_image = $request->cover_image->store('uploads/covers', 'public');
         }
         $profile->save();
@@ -55,5 +74,58 @@ class ProfileController extends Controller
         }else {
             return redirect()->back()->with('error', 'Something went wrong. Please try again later.');
         }
+    }
+
+    public function edit($id)
+    {
+        $profile = Profile::find($id)->where('user_id', Auth::user()->id)->first();
+        // dd($profile);
+        if ($profile) {
+            return view('auth.profile.edit', compact('profile'));
+        } else {
+            return redirect()->route('profile.create');
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            // 'type' => ['required', 'string', Rule::in([1, 2])],
+            'city_id' => 'required',
+            'organization_id' => 'required',
+            'email' => 'nullable|email',
+            'address' => 'required',
+        ]);
+        if (Auth::user()->role == 1) {
+            $request->validate([
+                'type' => 'required',
+            ]);
+        }
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+        // $profile->user_id = Auth::user()->id;
+        $profile->city_id = $request->city_id;
+        $profile->organization_type_id = $request->organization_id;
+        $profile->contact = $request->contact;
+        $profile->address = $request->address;
+        $profile->bio = $request->bio;
+        $profile->email = $request->email;
+        $profile->type = $request->type;
+        $profile->latitude = $request->latitude;
+        $profile->longitude = $request->longitude;
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $profile->image = $request->image->store('uploads/profile', 'public');
+        }
+        if ($request->hasFile('cover_image')) {
+            $request->validate([
+                'cover_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $profile->cover_image = $request->cover_image->store('uploads/covers', 'public');
+        }
+        $profile->save();
+        // dd($profile);
+        return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
     }
 }

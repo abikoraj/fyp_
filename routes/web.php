@@ -92,6 +92,8 @@ Route::middleware(['role:1|2'])->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
         Route::get('/create', [ProfileController::class, 'add'])->name('add');
         Route::post('/submit', [ProfileController::class, 'submit'])->name('submit');
+        Route::get('/edit/{id}', [ProfileController::class, 'edit'])->name('edit');
+        Route::post('/update', [ProfileController::class, 'update'])->name('update');
     });
 });
 

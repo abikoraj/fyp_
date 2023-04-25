@@ -15,14 +15,14 @@
             </a>
         </li>
         <li>
-            <a class=""
-                href="{{ route('donor.dashboard') }}">
+            <a class="{{ request()->routeIs('profile.index') ? 'active' : '' }}"
+                href="{{ route('profile.index') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph-suitcase-simple"></i>
+                        <i class="ph-user-circle"></i>
                     </span>
                     <span class="button-text">
-                        Applied Job
+                        Profile
                     </span>
                 </span>
             </a>

@@ -7,8 +7,6 @@
         <div class="dashboard-right-header">
             <div class="left-text">
                 <h5>{{ __('Hello') }}, {{ Auth::user()->name }}</h5>
-                <p class="m-0">Here_is_your_daily_activities_career_opportunities
-                </p>
             </div>
             <span class="sidebar-open-nav">
                 <i class="ph-list"></i>

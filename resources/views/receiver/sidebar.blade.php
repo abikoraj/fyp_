@@ -15,6 +15,19 @@
             </a>
         </li>
         <li>
+            <a class="{{ request()->routeIs('profile.index') ? 'active' : '' }}"
+                href="{{ route('profile.index') }}">
+                <span class="button-content-wrapper ">
+                    <span class="button-icon align-icon-left">
+                        <i class="ph-user-circle"></i>
+                    </span>
+                    <span class="button-text">
+                        Profile
+                    </span>
+                </span>
+            </a>
+        </li>
+        <li>
             <a class=""
                 href="{{ route('receiver.dashboard') }}">
                 <span class="button-content-wrapper ">
