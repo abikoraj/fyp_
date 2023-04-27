@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\OrganizationTypeController;
 use App\Http\Controllers\ProfileController;
@@ -81,6 +82,18 @@ Route::middleware(['role:2'])->group(function () {
         Route::view('/abc', 'welcome');
         Route::get('/logout', [UserController::class, 'logout'])->name('logout');
         Route::view('/profile', 'donor.profile')->name('profile');
+    });
+
+    Route::prefix('donation')->name('donation.')->group(function () {
+        Route::get('/', [DonationController::class, 'index'])->name('index');
+        Route::get('/create', [DonationController::class, 'add'])->name('add');
+        Route::post('/submit', [DonationController::class, 'submit'])->name('submit');
+        Route::get('/edit/{id}', [DonationController::class, 'edit'])->name('edit');
+        Route::post('/update', [DonationController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [DonationController::class, 'delete'])->name('delete');
+        Route::get('/my-donation', [DonationController::class, 'myDonation'])->name('mydonation');
+        Route::post('/status-change/{id}', [DonationController::class, 'status'])->name('status');
+        Route::post('/hide/{id}', [DonationController::class, 'hide'])->name('hide');
 
     });
 
@@ -95,5 +108,9 @@ Route::middleware(['role:1|2'])->group(function () {
         Route::get('/edit/{id}', [ProfileController::class, 'edit'])->name('edit');
         Route::post('/update', [ProfileController::class, 'update'])->name('update');
     });
+    Route::fallback(function () {
+        return view('error404');
+    });
 });
+
 

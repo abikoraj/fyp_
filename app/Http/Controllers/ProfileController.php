@@ -128,4 +128,6 @@ class ProfileController extends Controller
         // dd($profile);
         return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
     }
+
+
 }

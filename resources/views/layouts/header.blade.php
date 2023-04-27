@@ -62,49 +62,24 @@
 
                             <ul class="custom-border list-unstyled d-flex align-items-center justify-content-between">
                                 @if (Auth::user()->role == '1')
-                                    Receiver
+                                    R
                                     {{-- <x-website.company.notifications-component /> --}}
                                 @endif
                                 @if (Auth::user()->role == '2')
-                                    Donor
+                                    D
                                     {{-- <x-website.candidate.notifications-component /> --}}
                                 @endif
 
+                                <span>{{ Auth::user()->name }}</span>
                                 <li class="relative">
                                     <a href="{{ route('profile.index') }} " class="candidate-profile">
-                                        <img src="{{ asset('assets/authfile/images/profile_dummy.png') }}" alt="">
-                                        {{-- @company
-                                            <img src="{{ auth()->user()->company->logo_url }}" alt="">
+                                        @if (Auth::user()->profile->image)
+                                            <img src="{{ asset(Auth::user()->profile->image) }}" alt="Profile Image">
                                         @else
-                                            <img src="{{ auth()->user()->candidate->photo }}" alt="">
-                                        @endcompany --}}
+                                            <img src="{{ asset('assets/authfile/images/profile_dummy.png') }}" alt="Profile Image">
+                                        @endif
                                     </a>
                                 </li>
-                                {{-- @if (!request()->is('email/verify'))
-                                    <li class="d-none d-sm-block">
-                                        @company
-                                            <a href="{{ route('company.job.create') }}">
-                                                <button class="btn btn-primary">
-                                                    {{ __('post_job') }}
-                                                </button>
-                                            </a>
-                                        @endcompany
-                                    </li>
-                                @endif --}}
-                                {{-- @if (request()->is('email/verify'))
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <button class="btn btn-primary">
-                                                {{ __('log_out') }}
-                                            </button>
-                                        </a>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
-                                        @csrf
-                                    </form>
-                                @endif --}}
                             </ul>
                         </div>
                     </div>

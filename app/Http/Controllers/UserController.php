@@ -55,7 +55,7 @@ class UserController extends Controller
         if ($request->getMethod() == "POST") {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'phone' => ['required', 'string'],
+                'phone' => ['required', 'integer', 'digits:10', 'starts_with:98,97'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
                 'role' => ['required', 'string', Rule::in([1, 2])],
             ]);
@@ -128,7 +128,8 @@ class UserController extends Controller
         if ($verification_check->valid) {
             $user = User::where('phone', $phone)->first();
             $user->isVerified = true;
-            $user->phone_verified_at = now();
+            $user->phone_verified_at = now()->timezone('Asia/Kathmandu')->format('Y-m-d H:i:s');
+            dd($user->phone_verified_at);
             $user->save();
             return redirect()->route('login')->with('success', 'Your registration is successful. Please login to continue.');
         } else {

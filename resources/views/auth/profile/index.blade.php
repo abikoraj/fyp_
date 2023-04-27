@@ -5,11 +5,14 @@
 
 @section('content')
     <div class="single-page-banner">
-        <div class="dashboard-right-header">
-            <div class="body-font-1 ft-wt-5 rt-mb-20 pt-2"></div>
+        <div class="dashboard-right-header pt-2">
+            <div class="fs-4 ft-wt-5 ps-3 justify-content-center text-muted">My Profile</div>
             <span class="sidebar-open-nav m-2">
-                <i class="ph-list"></i>
+                <i class="ph ph-list"></i>
             </span>
+        </div>
+        <div class="devider">
+            <hr>
         </div>
         <div class="container">
             <div class="row">
@@ -56,7 +59,7 @@
                                 <div class="edit-btn align-self-lg-center rt-pt-lg-20 flex-md-row flex-column">
                                     <div>
                                         <a href="{{ route('profile.edit',['id'=>$profile->id]) }}" class="btn btn-primary btn-sm d-block px-2 py-1 w-100">
-                                            <span class="button-text"><small><i class="ph-pencil-simple"></i> Edit</small></span>
+                                            <span class="button-text"><small><i class="ph ph-pencil-simple"></i> Edit</small></span>
                                         </a>
                                     </div>
                                 </div>
@@ -107,7 +110,7 @@
                                     <div class="col-sm-6">
                                         <div class="icon-box">
                                             <div class="fs-2">
-                                                <i class="ph-map-trifold"></i>
+                                                <i class="ph ph-map-trifold"></i>
                                             </div>
                                             <h3 class="sub-title">Organization Type</h3>
                                             <h2 class="title">
@@ -120,7 +123,7 @@
                                     <div class="col-sm-6">
                                         <div class="icon-box">
                                             <div class="fs-2">
-                                                <i class="ph-tree-structure"></i>
+                                                <i class="ph ph-tree-structure"></i>
                                             </div>
                                             <h3 class="sub-title">Receiver's Type</h3>
                                             <h2 class="title">
@@ -144,7 +147,7 @@
 
                                 <div class="contact-icon-box">
                                     <div class="fs-2">
-                                        <i class="ph-buildings"></i>
+                                        <i class="ph ph-buildings"></i>
                                     </div>
                                     <div class="info">
                                         <h3 class="subtitle">City</h3>
@@ -157,7 +160,7 @@
                                 {{-- @endif --}}
                                 <div class="contact-icon-box">
                                     <div class="fs-2">
-                                        <i class="ph-map-pin"></i>
+                                        <i class="ph ph-map-pin"></i>
                                     </div>
                                     <div class="info">
                                         <h3 class="subtitle">Address</h3>
@@ -173,7 +176,7 @@
                                     </div>
                                     <div class="contact-icon-box">
                                         <div class="fs-2">
-                                            <i class="ph-phone"></i>
+                                            <i class="ph ph-phone"></i>
                                         </div>
                                         <div class="info">
                                             <h3 class="subtitle">Phone Number</h3>
@@ -186,7 +189,7 @@
                                     @if ($profile->contact)
                                         <div class="contact-icon-box">
                                             <div class="fs-2">
-                                                <i class="ph-phone-call"></i>
+                                                <i class="ph ph-phone-call"></i>
                                             </div>
                                             <div class="info">
                                                 <h3 class="subtitle">Secondary Phone</h3>
@@ -200,7 +203,7 @@
                                     @if ($profile->email)
                                         <div class="contact-icon-box">
                                             <div class="fs-2">
-                                                <i class="ph-envelope"></i>
+                                                <i class="ph ph-envelope"></i>
                                             </div>
                                             <div class="info">
                                                 <h3 class="subtitle">Email</h3>
@@ -252,7 +255,7 @@
                                             @endif
                                         </div>
                                         <span class="loacton text-gray-400 d-inline-flex ">
-                                            <i class="ph-map-pin"></i>
+                                            <i class="ph ph-map-pin"></i>
                                             {{ $job->phone }}
                                         </span>
                                     </div>

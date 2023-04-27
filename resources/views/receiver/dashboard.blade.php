@@ -9,7 +9,7 @@
                 <h5>{{ __('Hello') }}, {{ Auth::user()->name }}</h5>
             </div>
             <span class="sidebar-open-nav">
-                <i class="ph-list"></i>
+                <i class="ph ph-list"></i>
             </span>
         </div>
         <div class="row">
@@ -20,7 +20,7 @@
                         <p>{{ __('open_job') }}</p>
                     </div>
                     <div class="single-feature-icon">
-                        <i class="ph-suitcase-simple"></i>
+                        <i class="ph ph-suitcase-simple"></i>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                         <p>{{ __('saved_candidate') }}</p>
                     </div>
                     <div class="single-feature-icon">
-                        <i class="ph-identification-card"></i>
+                        <i class="ph ph-identification-card"></i>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         <p>{{ __('pending_jobs') }}</p>
                     </div>
                     <div class="single-feature-icon">
-                        <i class="ph-suitcase-simple text-danger-500"></i>
+                        <i class="ph ph-suitcase-simple text-danger-500"></i>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         <p>{{ __('active_jobs') }}</p>
                     </div>
                     <div class="single-feature-icon">
-                        <i class="ph-suitcase-simple text-success-500"></i>
+                        <i class="ph ph-suitcase-simple text-success-500"></i>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         <p>{{ __('highlight_jobs') }}</p>
                     </div>
                     <div class="single-feature-icon">
-                        <i class="ph-shield-star text-warning-500"></i>
+                        <i class="ph ph-shield-star text-warning-500"></i>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                         <p>{{ __('featured_jobs') }}</p>
                     </div>
                     <div class="single-feature-icon">
-                        <i class="ph-circle-wavy-check text-primary-500"></i>
+                        <i class="ph ph-circle-wavy-check text-primary-500"></i>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                         <p>{{ __('profile_view') }}</p>
                     </div>
                     <div class="single-feature-icon">
-                        <i class="ph-users-four text-danger-500"></i>
+                        <i class="ph ph-users-four text-danger-500"></i>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
             <h3 class="f-size-16">{{ __('recent_jobs') }}</h3>
             <a class="view-all text-gray-500 f-size-16 d-flex align-items-center" href="">
                 {{ __('view_all') }}
-                <i class="ph-arrow-right f-size-20 rt-ml-8"></i>
+                <i class="ph ph-arrow-right f-size-20 rt-ml-8"></i>
             </a>
         </div>
         <div class="db-job-card-table">
@@ -138,24 +138,24 @@
                         <td>
                             {{-- @if ($job->status == 'active') --}}
                             <div class="text-success-500 ft-wt-5 d-flex align-items-center">
-                                <i class="ph-check-circle f-size-18 mt-1 rt-mr-4"></i>
+                                <i class="ph ph-check-circle f-size-18 mt-1 rt-mr-4"></i>
                                 {{ __('active') }}
                             </div>
                             {{-- @elseif ($job->status == 'pending')
                                                         <div class="text-primary-500 ft-wt-5 d-flex align-items-center">
-                                                            <i class="ph-hourglass f-size-18 mt-1 rt-mr-4"></i>
+                                                            <i class="ph ph-hourglass f-size-18 mt-1 rt-mr-4"></i>
                                                             {{ __('pending') }}
                                                         </div>
                                                     @else
                                                         <div class="text-danger-500 ft-wt-5 d-flex align-items-center">
-                                                            <i class="ph-x-circle f-size-18 mt-1 rt-mr-4"></i>
+                                                            <i class="ph ph-x-circle f-size-18 mt-1 rt-mr-4"></i>
                                                             {{ __('job_expire') }}
                                                         </div>
                                                     @endif --}}
                         </td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <i class="ph-users f-size-20 rt-mr-4"></i>
+                                <i class="ph ph-users f-size-20 rt-mr-4"></i>
                                 5 {{ __('applications') }}
                             </div>
                         </td>

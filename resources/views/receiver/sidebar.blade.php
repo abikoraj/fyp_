@@ -6,7 +6,7 @@
                 href="{{ route('receiver.dashboard') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph-stack"></i>
+                        <i class="ph ph-stack"></i>
                     </span>
                     <span class="button-text">
                         Overview
@@ -19,7 +19,7 @@
                 href="{{ route('profile.index') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph-user-circle"></i>
+                        <i class="ph ph-user-circle"></i>
                     </span>
                     <span class="button-text">
                         Profile
@@ -32,7 +32,7 @@
                 href="{{ route('receiver.dashboard') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph-suitcase-simple"></i>
+                        <i class="ph ph-suitcase-simple"></i>
                     </span>
                     <span class="button-text">
                         Applied Job
@@ -45,7 +45,7 @@
                 href="{{ route('receiver.dashboard') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph-bookmark-simple"></i>
+                        <i class="ph ph-bookmark-simple"></i>
                     </span>
                     <span class="button-text">
                         Favorite Jobs
@@ -58,7 +58,7 @@
                 href="{{ route('receiver.dashboard') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph-bell-ringing"></i>
+                        <i class="ph ph-bell-ringing"></i>
                     </span>
                     <span class="button-text">
                         Job Alert
@@ -71,7 +71,7 @@
                 href="{{ route('receiver.dashboard') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph-gear"></i>
+                        <i class="ph ph-gear"></i>
                     </span>
                     <span class="button-text">
                         Settings
@@ -83,7 +83,7 @@
             <a class="{{ request()->routeIs('receiver.logout') ? 'active' : '' }}" href="{{ route('receiver.logout') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph-sign-out"></i>
+                        <i class="ph ph-sign-out"></i>
                     </span>
                     <span class="button-text">
                         Logout

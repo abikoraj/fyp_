@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Donor Dashboard
+    Edit Profile
 @endsection
 @php
     $org_type = App\Models\OrganizationType::all();
@@ -34,11 +34,29 @@
             .ck-disabled {
                 display: none !important;
             }
+            .mobile-img{
+               max-width: 300px;
+               display: block;
+            }
+        }
+        @media (max-width: 310px) {
+            .sidebar-open-nav{
+               z-index: 1000;
+            }
         }
     </style>
 @endsection
 @section('content')
     <div class="dashboard-wrapper">
+        <div class="dashboard-right-header pt-2">
+            <div class="fs-4 ft-wt-5 ps-3 justify-content-center text-muted">Edit Profile</div>
+            <span class="sidebar-open-nav m-2">
+                <i class="ph ph-list"></i>
+            </span>
+        </div>
+        <div class="devider">
+            <hr>
+        </div>
         <div class="container d-flex justify-content-center align-items-center">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="dashboard-right">
@@ -98,7 +116,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="rt-mb-20 col-lg-4 col-md-4 col-sm-12">
+                            <div class="rt-mb-20 col-lg-4 col-md-4 col-sm-12 mobile-img">
                                 <label>Profile Image</label>
                                 <input type="file" class="dropify" id="dropify-event" name="image"
                                     data-default-file="{{ asset($profile->image) }}">
@@ -107,9 +125,9 @@
                                 @enderror
                             </div>
 
-                            <div class="rt-mb-20 col-lg-8 col-md-8 col-sm-12">
+                            <div class="rt-mb-20 col-lg-8 col-md-8 col-sm-12 mobile-img">
                                 <label>Cover Image</label>
-                                <input type="file" class="dropify" id="dropify-event" name="cover_image"
+                                <input type="file" class="dropify" id="dropify-event" name="cover_image" style="width: 100px;"
                                 data-default-file="{{ asset($profile->cover_image) }}">
                                 @error('cover_image')
                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -196,16 +214,9 @@
                 </div>
             </div>
         </div>
-        <div class="dashboard-footer text-center body-font-4 text-gray-500">
-            @include('layouts.footer')
-        </div>
     </div>
 @endsection
 @section('script')
-    <script src="{{ asset('assets/front/js/vendor.min.js') }}"></script>
-    <script src="{{ asset('assets/front/js/app.min.js') }}"></script>
-
-
     {{-- Jquery --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
         integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
