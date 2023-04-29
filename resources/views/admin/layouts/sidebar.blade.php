@@ -34,6 +34,24 @@
                             <p>Food Category</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('donor.list') }}" class="nav-link {{ Route::is('donor.list') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Donors</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('receiver.list') }}" class="nav-link {{ Route::is('receiver.list') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Receiver</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('unverified.list') }}" class="nav-link {{ Route::is('unverified.list') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Unverified Users</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- Sidebar Menu -->

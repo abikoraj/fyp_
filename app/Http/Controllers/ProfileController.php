@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Donation;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -11,9 +13,10 @@ class ProfileController extends Controller
 {
     public function index()
     {
+        $latest_donation = Donation::where('user_id', Auth::user()->id)->where('hidden', false)->latest()->take(3)->get();
         $profile = Profile::where('user_id', Auth::user()->id)->first();
         if ($profile) {
-            return view('auth.profile.index', compact('profile'));
+            return view('auth.profile.index', compact('profile', 'latest_donation'));
         } else {
             return redirect()->route('profile.add');
         }
@@ -127,6 +130,12 @@ class ProfileController extends Controller
         $profile->save();
         // dd($profile);
         return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
+    }
+
+    public function receiverList()
+    {
+        $profiles = Profile::all();
+        return view('admin.user.receiver', compact('profiles'));
     }
 
 

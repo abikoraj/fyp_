@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donation;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +44,7 @@ class DonationController extends Controller
         $donation->latitude = $request->latitude;
         $donation->longitude = $request->longitude;
         $donation->status = 0;
+        $donation->approval = 0;
         $donation->hidden = false;
         if ($request->hasFile('image')) {
             $donation->image = $request->image->store('uploads/donation', 'public');
@@ -81,6 +83,13 @@ class DonationController extends Controller
         } else {
             return redirect()->back()->with('error', 'This donation cannot be hidden.');
         }
-
     }
+
+    public function details($id)
+    {
+        $donation = Donation::findOrFail($id);
+        $profile = Profile::where('user_id', $donation->user_id)->first();
+        return view('donation.details', compact('donation', 'profile'));
+    }
+
 }

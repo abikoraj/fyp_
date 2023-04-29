@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Donation;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,7 +131,7 @@ class UserController extends Controller
             $user = User::where('phone', $phone)->first();
             $user->isVerified = true;
             $user->phone_verified_at = now()->timezone('Asia/Kathmandu')->format('Y-m-d H:i:s');
-            dd($user->phone_verified_at);
+            // dd($user->phone_verified_at);
             $user->save();
             return redirect()->route('login')->with('success', 'Your registration is successful. Please login to continue.');
         } else {
@@ -156,4 +158,45 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('login');
     }
+
+    public function listDonor()
+    {
+        $users = User::where('role', 2)->where('isVerified', true)->get();
+        return view('admin.user.donor', compact('users'));
+    }
+    public function listReceiver()
+    {
+        $users = User::where('role', 1)->where('isVerified', true)->get();
+        return view('admin.user.receiver', compact('users'));
+    }
+    public function listUnverified()
+    {
+        $users = User::where('isVerified', false)->get();
+        return view('admin.user.unverified', compact('users'));
+    }
+    public function listDonation()
+    {
+        $users = Donation::where('hidden', false)->get();
+        return view('admin.user.unverified', compact('users'));
+    }
+
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $profile = Profile::where('user_id', $id)->first();
+        if ($profile) {
+            $profile->delete();
+        }
+        $user->delete();
+        return redirect()->back()->with('success', 'User Deleted Successfully');
+    }
+
+    public function details($id)
+    {
+        $user = User::find($id);
+        // $profile = Profile::where('user_id', $id)->first();
+        return view('admin.user.details', compact('user'));
+    }
+
 }

@@ -79,7 +79,7 @@
                                     </li>
                                 @endif
                                 <li>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{ route('donation.details', $all->id) }}">
                                         View Details
                                     </a>
                                 </li>

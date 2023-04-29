@@ -63,6 +63,20 @@ Route::middleware(['role:0'])->group(function () {
             Route::post('/update/{foodCat}', [FoodCategoryController::class, 'update'])->name('update');
             Route::get('/delete/{foodCat}', [FoodCategoryController::class, 'delete'])->name('delete');
         });
+
+        Route::prefix('receiver')->name('receiver.')->group(function () {
+            Route::get('/', [ProfileController::class, 'receiverList'])->name('list');
+            Route::post('/submit', [ProfileController::class, 'submit'])->name('submit');
+            Route::post('/update/{profile}', [ProfileController::class, 'update'])->name('update');
+            Route::get('/delete/{profile}', [ProfileController::class, 'delete'])->name('delete');
+        });
+
+        Route::get('/donor', [UserController::class, 'listDonor'])->name('donor.list');
+        Route::get('/receiver', [UserController::class, 'listReceiver'])->name('receiver.list');
+        Route::get('/unverified', [UserController::class, 'listUnverified'])->name('unverified.list');
+        Route::get('user/detail/{id}', [UserController::class, 'details'])->name('user.detail');
+        Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+        Route::get('/donations', [UserController::class, 'listDonation'])->name('donation.list');
     });
 
 });
@@ -94,6 +108,7 @@ Route::middleware(['role:2'])->group(function () {
         Route::get('/my-donation', [DonationController::class, 'myDonation'])->name('mydonation');
         Route::post('/status-change/{id}', [DonationController::class, 'status'])->name('status');
         Route::post('/hide/{id}', [DonationController::class, 'hide'])->name('hide');
+        Route::get('/details/{id}', [DonationController::class, 'details'])->name('details');
 
     });
 

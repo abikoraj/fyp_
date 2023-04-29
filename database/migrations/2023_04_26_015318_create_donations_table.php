@@ -30,6 +30,7 @@ class CreateDonationsTable extends Migration
             $table->dateTime('prepared_at')->nullable();
             $table->dateTime('expires_at')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('approval')->nullable();
             $table->integer('receiver_id')->nullable();
             $table->boolean('hidden')->nullable();
             $table->timestamps();

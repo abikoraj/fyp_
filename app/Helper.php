@@ -50,4 +50,15 @@ class Helper
     {
         return self::status;
     }
+
+    const approval = [
+        'Pending',
+        'Approved',
+        'Rejected',
+    ];
+
+    public function getApproval()
+    {
+        return self::approval;
+    }
 }

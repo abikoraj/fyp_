@@ -12,6 +12,8 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    @yield('css')
+
 </head>
 
 <body>
@@ -50,6 +52,11 @@
         @include('admin.layouts.footer')
     </div>
 
+    {{-- Jquery --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
     <script>
         // Navbar Collapse Toggle
         var isNavCollapse = JSON.parse(localStorage.getItem("sidebar_collapse"))
@@ -59,6 +66,7 @@
             localStorage.setItem("sidebar_collapse", isNavCollapse == true ? false : true);
         });
     </script>
+    @yield('script')
 </body>
 
 </html>

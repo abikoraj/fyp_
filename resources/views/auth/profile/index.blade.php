@@ -58,8 +58,10 @@
                                 </div>
                                 <div class="edit-btn align-self-lg-center rt-pt-lg-20 flex-md-row flex-column">
                                     <div>
-                                        <a href="{{ route('profile.edit',['id'=>$profile->id]) }}" class="btn btn-primary btn-sm d-block px-2 py-1 w-100">
-                                            <span class="button-text"><small><i class="ph ph-pencil-simple"></i> Edit</small></span>
+                                        <a href="{{ route('profile.edit', ['id' => $profile->id]) }}"
+                                            class="btn btn-primary btn-sm d-block px-2 py-1 w-100">
+                                            <span class="button-text"><small><i class="ph ph-pencil-simple"></i>
+                                                    Edit</small></span>
                                         </a>
                                     </div>
                                 </div>
@@ -76,14 +78,14 @@
             <div class="row">
                 <div class="col-lg-7 rt-mb-lg-30">
                     @if ($profile->bio)
-                    <div class="body-font-1 ft-wt-5 rt-mb-20">Bio</div>
-                    <div class="body-font-3 text-gray-500">
-                        {!! $profile->bio !!}
-                        {{-- Bio goes here --}}
-                    </div>
-                    <div class="devider">
-                        <hr>
-                    </div>
+                        <div class="body-font-1 ft-wt-5 rt-mb-20">Bio</div>
+                        <div class="body-font-3 text-gray-500">
+                            {!! $profile->bio !!}
+                            {{-- Bio goes here --}}
+                        </div>
+                        <div class="devider">
+                            <hr>
+                        </div>
                     @endif
                     <div class="body-font-1 ft-wt-5 rt-mb-20">Location</div>
                     <div class="body-font-3 text-gray-500">
@@ -217,7 +219,8 @@
                                 </div>
                             </div>
                             <div id="show-more" data-bs-toggle="collapse" data-bs-target="#contact-more-collapse"
-                                aria-expanded="false" aria-controls="contact-more-collapse" class="mt-2 rounded show-more">
+                                aria-expanded="false" aria-controls="contact-more-collapse"
+                                class="mt-2 rounded show-more">
                                 Show Contact Information
                             </div>
                         </div>
@@ -230,58 +233,68 @@
     <div class="rt-spacer-100 rt-spacer-md-50"></div>
     <!--Related candidate Area-->
     <hr class="hr-0">
-    <section class="related-jobs-area rt-pt-100 rt-pt-md-50" id="open_position">
-        <div class="container">
-            <div class="row">
-                <div class="flex-grow-1 mb-4">
-                    <h4>{{ __('open_positions') }} (5)</h4>
-                </div>
-                @foreach (App\Models\User::all() as $job)
-                    <div class="col-xl-4 col-md-6 fade-in-bottom rt-mb-24 cat-1 cat-3 ">
-                        <div class="card jobcardStyle1 gradient-bg">
-                            <div class="card-body">
-                                <div class="rt-single-icon-box">
-                                    <div class="icon-thumb company-logo">
-                                        <img src="{{ asset('assets/back/images/avatar.png') }}" alt=""
-                                            draggable="false">
-                                    </div>
+    <section class="related-jobs-area rt-pt-50" id="open_position">
+        <div class="recently-applied-wrap d-flex justify-content-between align-items-center rt-mb-15">
+            <h3 class="f-size-16">Recent Donation</h3>
+            <a class="view-all text-gray-500 f-size-16 d-flex align-items-center" href="{{ route('donation.mydonation') }}">
+                View All
+                <i class="ph ph-arrow-right f-size-20 rt-ml-8"></i>
+            </a>
+        </div>
+        <div class="db-job-card-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Posted</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Expires At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($latest_donation->count() > 0)
+                        @foreach ($latest_donation as $donation)
+                            <tr>
+                                <td>
                                     <div class="iconbox-content">
-                                        <div class="job-mini-title">
-                                            {{-- <a href="{{ route('website.job.details', $job->slug) }}">{{ $job->company->user->name }}</a> --}}
-                                            <a href="">Job name</a>
-                                            @if ($job->isVerified)
-                                                <span
-                                                    class="badge rounded-pill bg-danger-50 text-danger-500">{{ __('verified') }}</span>
-                                            @endif
+                                        <div class="post-info2">
+                                            <div class="post-main-title">
+                                                <a href="" class="text-gray-900 f-size-16  ft-wt-5">
+                                                    {{ $donation->name }}
+                                                </a>
+                                            </div>
+
                                         </div>
-                                        <span class="loacton text-gray-400 d-inline-flex ">
-                                            <i class="ph ph-map-pin"></i>
-                                            {{ $job->phone }}
-                                        </span>
                                     </div>
-                                </div>
-                                <div class="post-info">
-                                    <div class="post-main-title">
-                                        <a href="">Job Title</a>
-                                        {{-- <a href="{{ route('website.job.details', $job->slug) }}">{{ $job->title }}</a> --}}
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {{ $donation->created_at->diffForHumans() }}
                                     </div>
-                                    <div class="body-font-4 text-gray-600">
-                                        <span class="info-tools">Job type name</span>
-                                        <span class="info-tools has-dot">1000 -
-                                            5000</span>
-                                        {{-- <span class="info-tools has-dot">{{ currencyPosition($job->min_salary) }} -
-                                                {{ currencyPosition($job->max_salary) }}</span> --}}
+                                </td>
+                                <td>
+                                    <div class="text-success-500 ft-wt-5 d-flex align-items-center">
+                                        {{ \App\Helper::getStatus()[$donation->status] }}
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-                <div class="card text-center">
-                    {{ __('no_data_found') }}
-                </div>
-                {{-- @endforelse --}}
-            </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {{ $donation->quantity }} {{ \App\Helper::getUnit()[$donation->unit] }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {{ $donation->expires_at }}
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        @include('layouts.notfound')
+                    @endif
+                </tbody>
+            </table>
         </div>
     </section>
     <div class="rt-spacer-75 rt-spacer-md-30"></div>
@@ -295,11 +308,13 @@
             cursor: pointer;
             opacity: 0.7;
         }
+
         @media (max-width: 767px) {
-            .name-box{
+            .name-box {
                 text-align: center;
             }
-            .edit-btn{
+
+            .edit-btn {
                 width: 100% !important;
             }
         }
@@ -322,6 +337,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
         integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/esri-leaflet@2.1.2/dist/esri-leaflet.js"></script>
 

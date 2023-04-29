@@ -73,7 +73,7 @@
                                 <span>{{ Auth::user()->name }}</span>
                                 <li class="relative">
                                     <a href="{{ route('profile.index') }} " class="candidate-profile">
-                                        @if (Auth::user()->profile->image)
+                                        @if (Auth::user()->profile)
                                             <img src="{{ asset(Auth::user()->profile->image) }}" alt="Profile Image">
                                         @else
                                             <img src="{{ asset('assets/authfile/images/profile_dummy.png') }}" alt="Profile Image">
