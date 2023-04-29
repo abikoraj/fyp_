@@ -174,11 +174,7 @@ class UserController extends Controller
         $users = User::where('isVerified', false)->get();
         return view('admin.user.unverified', compact('users'));
     }
-    public function listDonation()
-    {
-        $users = Donation::where('hidden', false)->get();
-        return view('admin.user.unverified', compact('users'));
-    }
+
 
 
     public function delete($id)

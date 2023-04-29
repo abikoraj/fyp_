@@ -25,9 +25,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
-Route::view('/v', 'auth.verify');
+
 
 
 Route::match(['get', 'post'], '/login', [UserController::class, 'login'])->name('login');
@@ -76,7 +76,17 @@ Route::middleware(['role:0'])->group(function () {
         Route::get('/unverified', [UserController::class, 'listUnverified'])->name('unverified.list');
         Route::get('user/detail/{id}', [UserController::class, 'details'])->name('user.detail');
         Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
-        Route::get('/donations', [UserController::class, 'listDonation'])->name('donation.list');
+
+        Route::name('admin.')->group(function () {
+            Route::get('/approved-donation', [DonationController::class, 'approvedDonation'])->name('donation.approved');
+            Route::get('/pending-donation', [DonationController::class, 'pendingDonation'])->name('donation.pending');
+            Route::get('/rejected-donation', [DonationController::class, 'rejectedDonation'])->name('donation.rejected');
+            Route::get('/hidden-donation', [DonationController::class, 'hiddenDonation'])->name('donation.hidden');
+            Route::get('/donation-details/{id}', [DonationController::class, 'detailDonation'])->name('donation.details');
+            Route::post('/donation-approve/{id}', [DonationController::class, 'approveDonation'])->name('donation.approve');
+            Route::post('/donation-reject/{id}', [DonationController::class, 'rejectDonation'])->name('donation.reject');
+            Route::post('/donation-hide/{id}', [DonationController::class, 'hideDonation'])->name('donation.hide');
+    });
     });
 
 });

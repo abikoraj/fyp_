@@ -57,7 +57,7 @@ class Helper
         'Rejected',
     ];
 
-    public function getApproval()
+    public static function getApproval()
     {
         return self::approval;
     }

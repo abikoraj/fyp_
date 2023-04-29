@@ -53,7 +53,7 @@
                 </span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a class=""
                 href="{{ route('donor.dashboard') }}">
                 <span class="button-content-wrapper ">
@@ -91,7 +91,7 @@
                     </span>
                 </span>
             </a>
-        </li>
+        </li> --}}
         <li>
             <a class="{{ request()->routeIs('donor.logout') ? 'active' : '' }}" href="{{ route('donor.logout') }}">
                 <span class="button-content-wrapper ">

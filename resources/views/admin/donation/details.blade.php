@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    User Details
+    Donation Details
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title line-height-36">
-                            {{ $user->name }}'s Details
+                            Donation Details
                         </h3>
                         <a href="{{ url()->previous() }}"
                             class="btn bg-primary float-right d-flex align-items-center justify-content-center">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="row m-2">
                         <div class="col-md-4">
-                            <img src="{{ asset($user->profile->image ?? 'assets/back/images/avatar.png') }}" alt="image"
+                            <img src="{{ asset($donation->image ?? 'assets/front/images/default.jpg') }}" alt="image"
                                 class="image-fluid" width="350px">
                         </div>
                         <div class="col-md-8">
@@ -28,64 +28,45 @@
                                 width="100%">
                                 <tbody>
                                     <tr class="mb-5">
-                                        <th width="30%">Name</th>
-                                        <td width="80%">{{ $user->name }}</td>
+                                        <th width="30%">Food Name</th>
+                                        <td width="80%">{{ $donation->name }}</td>
                                     </tr>
                                     <tr class="mb-5">
-                                        <th width="30%">Phone</th>
-                                        <td width="70%">{{ $user->phone }}</td>
+                                        <th width="30%">Food Category</th>
+                                        <td width="80%">{{ $donation->food_category->name ?? '' }}</td>
                                     </tr>
                                     <tr class="mb-5">
-                                        <th width="30%">Role</th>
-                                        <td width="70%">
-                                            @if ($user->role == 1)
-                                                Receiver
-                                            @elseif ($user->role == 2)
-                                                Donor
-                                            @endif
-                                        </td>
+                                        <th width="30%">Quantity</th>
+                                        <td width="70%">{{ $donation->quantity }} {{ $donation->quantity }}
+                                            {{ \App\Helper::getUnit()[$donation->unit] }}</td>
                                     </tr>
                                     <tr class="mb-5">
-                                        <th width="30%">Email</th>
-                                        <td width="70%">{{ $user->profile->email ?? '' }}</td>
+                                        <th width="30%">Status</th>
+                                        <td width="70%">{{ \App\Helper::getStatus()[$donation->status] }}</td>
+                                    </tr>
+                                    <tr class="mb-5">
+                                        <th width="30%">Description</th>
+                                        <td width="70%">{!! $donation->desc ?? '' !!}</td>
+                                    </tr>
+                                    <tr class="mb-5">
+                                        <th width="30%">Prepared At</th>
+                                        <td width="70%">{{ $donation->prepared_at ?? '' }}</td>
+                                    </tr>
+                                    <tr class="mb-5">
+                                        <th width="30%">Expires At</th>
+                                        <td width="70%">{{ $donation->expires_at }}</td>
                                     </tr>
                                     <tr class="mb-5">
                                         <th width="30%">City</th>
-                                        <td width="70%">{{ $user->profile->city->name ?? '' }}</td>
-                                    </tr>
-                                    <tr class="mb-5">
-                                        <th width="30%">Organization Type</th>
-                                        <td width="70%">{{ $user->profile->organization_type->name ?? '' }}</td>
-                                        </td>
-                                    </tr>
-                                    @if ($user->role == 1)
-                                        <tr class="mb-5">
-                                            <th width="30%">Receiver's Type</th>
-                                            <td width="70%">
-                                                @if ($user->profile)
-                                                    @if ($user->profile->type == 1)
-                                                        Primary Receiver
-                                                    @elseif($user->profile->type == 2)
-                                                        Secondary Receiver
-                                                    @endif
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endif
-                                    <tr class="mb-5">
-                                        <th width="30%">Secondary Phone</th>
-                                        <td width="70%">{{ $user->profile->contact ?? '' }}</td>
-                                        </td>
+                                        <td width="70%">{{ $donation->city->name ?? '' }}</td>
                                     </tr>
                                     <tr class="mb-5">
                                         <th width="30%">Address</th>
-                                        <td width="70%">{{ $user->profile->address ?? '' }}</td>
-                                        </td>
+                                        <td width="70%">{{ $donation->address ?? '' }}</td>
                                     </tr>
                                     <tr class="mb-5">
-                                        <th width="30%">Bio</th>
-                                        <td width="70%">{!! $user->profile->bio ?? '' !!}</td>
-                                        </td>
+                                        <th width="30%">Donor</th>
+                                        <td width="70%"><a href="{{ route('user.detail', $donation->user_id) }}" class="">{{ $donation->user->name }}</a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -116,9 +97,6 @@
                         </div>
                     </div>
                 </div>
-                @if ($user->role == 2)
-                    @include('admin.donation.userDonations')
-                @endif
             </div>
         </div>
     </div>
@@ -135,8 +113,8 @@
     <script>
         var map;
 
-        var latitude = {{ $user->profile->latitude ?? 0 }};
-        var longitude = {{ $user->profile->longitude ?? 0 }};
+        var latitude = {{ $donation->latitude ?? 0 }};
+        var longitude = {{ $donation->longitude ?? 0 }};
         console.log(latitude, longitude);
 
         var latlng = L.latLng(latitude, longitude);

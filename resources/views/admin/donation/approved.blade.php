@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    Donor List
+    Donation List
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title line-height-36">Receiver List</h3>
+                            <h3 class="card-title line-height-36">Approved Donations</h3>
                         </div>
                     </div>
 
@@ -18,51 +18,52 @@
                         <table class="table table-hover text-nowrap table-bordered">
                             <thead>
                                 <tr class="text-center">
+                                    <th>#</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Organization Type</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>Donor</th>
+                                    <th>Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($users->count() > 0)
-                                    @foreach ($users as $user)
+                                @if ($donations->count() > 0)
+                                    @foreach ($donations as $donation)
                                         <tr>
                                             <td class="text-center" tabindex="0">
-                                                <img src="{{ asset($user->profile->image ?? 'assets/back/images/avatar.png') }}"
+                                                {{ $loop->index + 1 }}
+                                            </td>
+                                            <td class="text-center" tabindex="0">
+                                                <img src="{{ asset($donation->image ?? 'assets/front/images/default.jpg') }}"
                                                     class="rounded" width="50px" alt="image">
                                             </td>
                                             <td class="text-center" tabindex="0">
-                                                <a href="{{ route('user.detail', $user->id) }}" class="">
-                                                    {{ $user->name }}
+                                                <a href="{{ route('admin.donation.details', $donation->id) }}" class="">
+                                                    {{ $donation->name }}
                                                 </a>
                                             </td>
                                             <td class="text-center" tabindex="0">
-                                                {{ $user->phone }}
+                                                {{ $donation->quantity }} {{ \App\Helper::getUnit()[$donation->unit] }}
                                             </td>
                                             <td class="text-center" tabindex="0">
-                                                {{ $user->profile->address ?? '' }}
+                                                {{ \App\Helper::getStatus()[$donation->status] }}
                                             </td>
                                             <td class="text-center" tabindex="0">
-                                                {{ $user->profile->organization_type->name ?? '' }}
+                                                {{ $donation->user->name }}
                                             </td>
 
                                             <td class="text-center">
 
-                                                <a href="{{ route('user.detail', $user->id) }}" class="btn bg-primary"><i class="fas fa-eye"></i>
-                                                </a>
+                                                <a href="{{ route('admin.donation.details', $donation->id) }}"
+                                                    class="btn bg-info ml-1"><i class="fas fa-eye"></i></a>
 
-                                                {{-- <a href="" class="btn bg-info"><i class="fas fa-edit"></i>
-                                                </a> --}}
-
-                                                <form action="{{ route('user.delete', $user->id) }}" method="GET"
-                                                    class="d-inline">
-
+                                                <form action="{{ route('admin.donation.hide', $donation->id) }}"
+                                                    method="POST" class="d-inline">
                                                     @csrf
                                                     <button
-                                                        onclick="return confirm('Are you sure you want to delete this item?');"
+                                                        onclick="return confirm('Are you sure you want to hide this donation?');"
                                                         class="btn bg-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>

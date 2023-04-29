@@ -1,5 +1,5 @@
 @php
-    $donations = App\Models\Donation::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    $donations = App\Models\Donation::where('user_id', $user->id)->where('hidden', false)->orderBy('created_at', 'desc')->get();
 @endphp
 <div class="card">
     <div class="card-header">
@@ -14,6 +14,7 @@
                 <th width="5%">Food Name</th>
                 <th width="10%">Quantity</th>
                 <th width="10%">Status</th>
+                <th width="10%">Approval</th>
                 <th width="10%">Action</th>
             </tr>
         </thead>
@@ -33,16 +34,22 @@
                         <td class="text-center" tabindex="0">
                             {{ \App\Helper::getStatus()[$donation->status] }}
                         </td>
+                        <td class="text-center" tabindex="0">
+                            {{ \App\Helper::getApproval()[$donation->approval] }}
+                        </td>
                         {{-- <td class="text-center" tabindex="0">
                             {{ date('j F, Y', strtotime($job->deadline)) }}
                         </td> --}}
                         <td class="text-center">
-                            <a href="" class="btn bg-info ml-1"><i
+                            <a href="{{ route('admin.donation.details', $donation->id) }}" class="btn bg-info ml-1"><i
                                     class="fas fa-eye"></i></a>
-                            <a href=""
-                                onclick="return confirm('{{ __('are_you_sure_you_want_to_delete_this_item') }}');"
-                                class="d-inline btn btn-danger"><i class="fas fa-trash"></i>
-                            </a>
+
+                            <form action="{{ route('admin.donation.hide', $donation->id ) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button
+                                    onclick="return confirm('Are you sure you want to hide this donation?');"
+                                    class="btn bg-danger"><i class="fas fa-trash"></i></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

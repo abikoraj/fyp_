@@ -52,13 +52,37 @@
                             <p>Unverified Users</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.donation.pending') }}" class="nav-link {{ Route::is('admin.donation.pending') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-donate"></i>
+                            <p>Pending Donations</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.donation.approved') }}" class="nav-link {{ Route::is('admin.donation.approved') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-donate"></i>
+                            <p>Approved Donations</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.donation.rejected') }}" class="nav-link {{ Route::is('admin.donation.rejected') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-donate"></i>
+                            <p>Rejected Donations</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.donation.hidden') }}" class="nav-link {{ Route::is('admin.donation.hidden') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-donate"></i>
+                            <p>Hidden Donations</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- Sidebar Menu -->
             <nav class="mt-2 nav-footer pt-3 border-top border-secondary">
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" role="menu"
                     data-accordion="false">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a target="_blank" href="/" class="nav-link text-light">
                             <i class="nav-icon fas fa-globe"></i>
                             <p>Visit Website</p>
@@ -69,7 +93,7 @@
                             <i class="nav-icon fas fa-cog"></i>
                             <p>Settings</p>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="{{ route('admin.logout') }}" class="nav-link">
                             <i class="nav-icon fas fa-sign-out-alt"></i>
