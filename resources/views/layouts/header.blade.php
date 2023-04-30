@@ -8,7 +8,7 @@
                         <a href="{{ route('donor.dashboard') }}" class="brand-logo">
                             <img src="{{ asset('assets/authfile/images/logo.png') }}" alt="">
                         </a>
-                        <form action="" method="GET" id="search-form" class="mx-width-300 d-lg-block d-none">
+                        {{-- <form action="" method="GET" id="search-form" class="mx-width-300 d-lg-block d-none">
                             <div class="search-box form-item position-relative">
                                 <input name="keyword" class="search-input w-100" type="text"
                                     placeholder="{{ __('job_title_keyword') }}" value="{{ request('keyword') }}"
@@ -24,12 +24,12 @@
                                 </svg>
 
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
 
                     <div class="n-header--bottom__right">
                         <div class="d-flex align-items-center ">
-                            <div class="search-icon mx-2 d-lg-none">
+                            {{-- <div class="search-icon mx-2 d-lg-none">
                                 <svg id="searchIcon" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -58,26 +58,17 @@
                                         </svg>
                                     </div>
                                 </form>
-                            </div>
+                            </div> --}}
 
                             <ul class="custom-border list-unstyled d-flex align-items-center justify-content-between">
-                                @if (Auth::user()->role == '1')
-                                    R
-                                    {{-- <x-website.company.notifications-component /> --}}
-                                @endif
-                                @if (Auth::user()->role == '2')
-                                    D
-                                    {{-- <x-website.candidate.notifications-component /> --}}
-                                @endif
-
                                 <span>{{ Auth::user()->name }}</span>
                                 <li class="relative">
                                     <a href="{{ route('profile.index') }} " class="candidate-profile">
-                                        @if (Auth::user()->profile)
-                                            <img src="{{ asset(Auth::user()->profile->image) }}" alt="Profile Image">
+                                        <img src="{{ asset(Auth::user()->profile->image ?? 'assets/authfile/images/profile_dummy.png') }}" alt="Profile Image">
+                                        {{-- @if (Auth::user()->profile)
                                         @else
                                             <img src="{{ asset('assets/authfile/images/profile_dummy.png') }}" alt="Profile Image">
-                                        @endif
+                                        @endif --}}
                                     </a>
                                 </li>
                             </ul>

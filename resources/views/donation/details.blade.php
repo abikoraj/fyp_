@@ -3,8 +3,6 @@
     Donation Detail
 @endsection
 
-
-
 @section('content')
     <div class="single-page-banner">
         <div class="dashboard-right-header pt-2">
@@ -36,7 +34,7 @@
                                         <div class="post-main-title2">
                                             <a href="#">{{ Str::limit($donation->name, 36, '...') }}</a>
                                             <span class="info-tools text-gray-600" style="font-size: 0.9rem;">{{ $donation->created_at->diffForHumans() }}</span>
-                                            @switch(4)
+                                            @switch($donation->status)
                                                 @case(0)
                                                     <span class="badge rounded-pill bg-primary text-white">Fresh</span>
                                                 @break

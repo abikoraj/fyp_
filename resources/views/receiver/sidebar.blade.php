@@ -1,6 +1,7 @@
 <div class="d-sidebar">
     <h3>Receiver Dashboard</h3>
     <ul class="sidebar-menu">
+
         <li>
             <a class="{{ request()->routeIs('receiver.dashboard') ? 'active' : '' }}"
                 href="{{ route('receiver.dashboard') }}">
@@ -28,19 +29,32 @@
             </a>
         </li>
         <li>
-            <a class=""
-                href="{{ route('receiver.dashboard') }}">
+            <a class="{{ request()->routeIs('receiver.donations') ? 'active' : '' }}"
+                href="{{ route('receiver.donations') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph ph-suitcase-simple"></i>
+                        <i class="ph ph-hand-heart"></i>
                     </span>
                     <span class="button-text">
-                        Applied Job
+                        Donations
                     </span>
                 </span>
             </a>
         </li>
         <li>
+            <a class="{{ request()->routeIs('receiver.donations.nearme') ? 'active' : '' }}"
+                href="{{ route('receiver.donations.nearme') }}">
+                <span class="button-content-wrapper ">
+                    <span class="button-icon align-icon-left">
+                        <i class="ph ph-map-pin-line"></i>
+                    </span>
+                    <span class="button-text">
+                        Donations Near Me
+                    </span>
+                </span>
+            </a>
+        </li>
+        {{-- <li>
             <a class=""
                 href="{{ route('receiver.dashboard') }}">
                 <span class="button-content-wrapper ">
@@ -78,7 +92,7 @@
                     </span>
                 </span>
             </a>
-        </li>
+        </li> --}}
         <li>
             <a class="{{ request()->routeIs('receiver.logout') ? 'active' : '' }}" href="{{ route('receiver.logout') }}">
                 <span class="button-content-wrapper ">

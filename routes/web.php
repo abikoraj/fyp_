@@ -86,9 +86,8 @@ Route::middleware(['role:0'])->group(function () {
             Route::post('/donation-approve/{id}', [DonationController::class, 'approveDonation'])->name('donation.approve');
             Route::post('/donation-reject/{id}', [DonationController::class, 'rejectDonation'])->name('donation.reject');
             Route::post('/donation-hide/{id}', [DonationController::class, 'hideDonation'])->name('donation.hide');
+        });
     });
-    });
-
 });
 
 Route::middleware(['role:1'])->group(function () {
@@ -97,6 +96,8 @@ Route::middleware(['role:1'])->group(function () {
             return view('receiver.dashboard');
         })->name('dashboard');
         Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+        Route::get('/donations', [DonationController::class, 'listDonations'])->name('donations');
+        Route::get('/donations-near-me', [DonationController::class, 'nearMe'])->name('donations.nearme');
     });
 });
 
@@ -118,10 +119,7 @@ Route::middleware(['role:2'])->group(function () {
         Route::get('/my-donation', [DonationController::class, 'myDonation'])->name('mydonation');
         Route::post('/status-change/{id}', [DonationController::class, 'status'])->name('status');
         Route::post('/hide/{id}', [DonationController::class, 'hide'])->name('hide');
-        Route::get('/details/{id}', [DonationController::class, 'details'])->name('details');
-
     });
-
 });
 
 Route::middleware(['role:1|2'])->group(function () {
@@ -133,9 +131,10 @@ Route::middleware(['role:1|2'])->group(function () {
         Route::get('/edit/{id}', [ProfileController::class, 'edit'])->name('edit');
         Route::post('/update', [ProfileController::class, 'update'])->name('update');
     });
+
+    Route::get('donation/details/{id}', [DonationController::class, 'details'])->name('donation.details');
+
     Route::fallback(function () {
         return view('error404');
     });
 });
-
-

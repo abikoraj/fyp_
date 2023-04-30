@@ -16,7 +16,7 @@
                         <div class="iconbox-content">
                             <div class="post-info2">
                                 <div class="post-main-title">
-                                    <a href=""
+                                    <a href="{{ route('donation.details', $all->id) }}"
                                         class="text-gray-900 f-size-16  ft-wt-5">
                                         {{ $all->name }}
                                     </a>
@@ -71,15 +71,15 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end company-dashboard-dropdown"
                                 aria-labelledby="dropdownMenuButton5">
-                                @if ($all->status == 0 )
+                                {{-- @if ($all->status == 0 )
                                     <li>
                                         <a class="dropdown-item" href="">
                                             Edit
                                         </a>
                                     </li>
-                                @endif
+                                @endif --}}
                                 <li>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{ route('donation.details', $all->id) }}">
                                         View Details
                                     </a>
                                 </li>

@@ -195,4 +195,8 @@ class UserController extends Controller
         return view('admin.user.details', compact('user'));
     }
 
+    public function receiverHome(){
+
+    }
+
 }

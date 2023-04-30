@@ -18,15 +18,15 @@ class DonationController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'city_id'=>'required',
-            'food_category_id'=>'required',
+            'city_id' => 'required',
+            'food_category_id' => 'required',
             // 'desc'=>'required',
-            'quantity'=>'required',
-            'unit'=>'required',
-            'prepared_at'=>'required',
-            'expires_at'=>'required',
-            'contact'=>'required',
-            'address'=>'required',
+            'quantity' => 'required',
+            'unit' => 'required',
+            'prepared_at' => 'required',
+            'expires_at' => 'required',
+            'contact' => 'required',
+            'address' => 'required',
         ]);
 
         $donation = new Donation();
@@ -57,10 +57,10 @@ class DonationController extends Controller
 
     public function myDonation()
     {
-        $all = Donation::where('user_id', Auth::user()->id)->where('hidden', false)->get();
-        $active = Donation::where('user_id', Auth::user()->id)->whereIn('status', [0,1,2])->where('hidden', false)->where('approval', 1)->get();
-        $closed = Donation::where('user_id', Auth::user()->id)->where('status', [3,4])->where('hidden', false)->where('approval', 1)->get();
-        $hidden = Donation::where('user_id', Auth::user()->id)->where('hidden', true)->get();
+        $all = Donation::where('user_id', Auth::user()->id)->where('hidden', false)->orderBy('created_at', 'desc')->get();
+        $active = Donation::where('user_id', Auth::user()->id)->whereIn('status', [0, 1, 2])->where('hidden', false)->where('approval', 1)->orderBy('created_at', 'desc')->get();
+        $closed = Donation::where('user_id', Auth::user()->id)->where('status', [3, 4])->where('hidden', false)->where('approval', 1)->orderBy('created_at', 'desc')->get();
+        $hidden = Donation::where('user_id', Auth::user()->id)->where('hidden', true)->orderBy('created_at', 'desc')->get();
         return view('donation.mydonation', compact('all', 'active', 'closed', 'hidden'));
     }
 
@@ -95,22 +95,22 @@ class DonationController extends Controller
 
     public function approvedDonation()
     {
-        $donations = Donation::where('hidden', false)->where('approval', 1)->get();
+        $donations = Donation::where('hidden', false)->where('approval', 1)->orderBy('created_at', 'desc')->get();
         return view('admin.donation.approved', compact('donations'));
     }
     public function pendingDonation()
     {
-        $donations = Donation::where('hidden', false)->where('approval', 0)->get();
+        $donations = Donation::where('hidden', false)->where('approval', 0)->orderBy('created_at', 'desc')->get();
         return view('admin.donation.pending', compact('donations'));
     }
     public function rejectedDonation()
     {
-        $donations = Donation::where('hidden', false)->where('approval', 2)->get();
+        $donations = Donation::where('hidden', false)->where('approval', 2)->orderBy('created_at', 'desc')->get();
         return view('admin.donation.rejected', compact('donations'));
     }
     public function hiddenDonation()
     {
-        $donations = Donation::where('hidden', true)->get();
+        $donations = Donation::where('hidden', true)->orderBy('created_at', 'desc')->get();
         return view('admin.donation.hidden', compact('donations'));
     }
     public function detailDonation($id)
@@ -147,4 +147,16 @@ class DonationController extends Controller
         }
     }
 
+    public function listDonations()
+    {
+        $donations = Donation::where('approval', 1)->where('hidden', false)->orderBy('created_at', 'desc')->get();
+        return view('receiver.donations', compact('donations'));
+    }
+
+    public function nearMe()
+    {
+        $donations = Donation::where('approval', 1)->where('hidden', false)
+            ->where('status', [0, 1, 2])->orderBy('created_at', 'desc')->get();
+        return view('receiver.nearme', compact('donations'));
+    }
 }

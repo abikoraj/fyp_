@@ -17,7 +17,7 @@
                         <div class="iconbox-content">
                             <div class="post-info2">
                                 <div class="post-main-title">
-                                    <a href=""
+                                    <a href="{{ route('donation.details', $all->id) }}"
                                         class="text-gray-900 f-size-16  ft-wt-5">
                                         {{ $all->name }}
                                     </a>
