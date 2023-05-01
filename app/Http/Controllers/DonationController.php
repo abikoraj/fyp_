@@ -6,6 +6,7 @@ use App\Models\Donation;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DonationController extends Controller
 {
@@ -155,8 +156,29 @@ class DonationController extends Controller
 
     public function nearMe()
     {
-        $donations = Donation::where('approval', 1)->where('hidden', false)
-            ->where('status', [0, 1, 2])->orderBy('created_at', 'desc')->get();
+        $latitude = Auth::user()->profile->latitude;
+        $longitude = Auth::user()->profile->longitude;
+        $radius = 20; // km
+
+        $donations = Donation::selectRaw('*,
+            ( 6371 * acos( cos( radians(?) ) *
+                       cos( radians( latitude ) ) *
+                       cos( radians( longitude ) - radians(?) ) +
+                       sin( radians(?) ) *
+                       sin( radians( latitude ) )
+                     )
+            ) AS distance', [$latitude, $longitude, $latitude])
+            ->where('status', [0, 1, 2])
+            ->where('hidden', false)
+            ->havingRaw("distance <= ?", [$radius])
+            ->orderBy('distance', 'asc')
+            ->get();
+
+        // $user = Auth::user();
+        // $profile = Profile::where('user_id', $user->id)->first();
+        // $latitude = $profile->latitude;
+        // $longitude = $profile->longitude;
+
         return view('receiver.nearme', compact('donations'));
     }
 }

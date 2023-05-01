@@ -170,8 +170,8 @@
                                 <div id="map"></div>
                             </div>
 
-                            <input type="hidden" name="latitude" id="lat">
-                            <input type="hidden" name="longitude" id="long">
+                            <input type="hidden" name="latitude" id="lat" >
+                            <input type="hidden" name="longitude" id="long" >
                         </div>
                         @if (Auth::user()->role == 1)
                             <div class="rt-mb-15">
@@ -246,26 +246,29 @@
     <script>
         var map;
 
-        var latitude = {{ $profile->latitude }};
-        var longitude = {{ $profile->longitude }};
+        var latitude = {{ $profile->latitude?? 28.3974 }};
+        var longitude = {{ $profile->longitude?? 84.1240 }};
         console.log(latitude, longitude);
+        if (latitude == null || longitude == null) {
 
-        // navigator.geolocation.getCurrentPosition(function(location) {
-        //     var latlng = L.latLng(location.coords.latitude, location.coords.longitude);
-        //     map = L.map('map').setView(latlng, 15);
-        //     map.setView(latlng, 13);
-        //     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-        //     }).addTo(map);
-        //     addMarker(latlng);
-        // });
-        var latlng = L.latLng(latitude, longitude);
-        map = L.map('map').setView(latlng, 15);
-        map.setView(latlng, 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-        }).addTo(map);
-        addMarker(latlng);
+            navigator.geolocation.getCurrentPosition(function(location) {
+                var latlng = L.latLng(location.coords.latitude, location.coords.longitude);
+                map = L.map('map').setView(latlng, 15);
+                map.setView(latlng, 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+                }).addTo(map);
+                addMarker(latlng);
+            });
+        } else {
+            var latlng = L.latLng(latitude, longitude);
+            map = L.map('map').setView(latlng, 15);
+            map.setView(latlng, 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            addMarker(latlng);
+        }
 
 
         function addMarker(latlng) {
@@ -273,8 +276,8 @@
                 draggable: true
             }).addTo(map);
 
-            // document.getElementById('lat').value = latlng.lat;
-            // document.getElementById('long').value = latlng.lng;
+            document.getElementById('lat').value = latlng.lat;
+            document.getElementById('long').value = latlng.lng;
             // var popupContent = "<button onclick='removeMarker(" + (markers.length - 1) + ")'>Remove Marker</button>";
             // marker.bindPopup(popupContent);
             marker.on('dragend', function(e) {

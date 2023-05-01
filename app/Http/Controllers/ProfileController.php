@@ -113,8 +113,8 @@ class ProfileController extends Controller
         $profile->bio = $request->bio;
         $profile->email = $request->email;
         $profile->type = $request->type;
-        $profile->latitude = $request->latitude;
-        $profile->longitude = $request->longitude;
+        $profile->latitude = $request->latitude ?? $profile->latitude;
+        $profile->longitude = $request->longitude ?? $profile->longitude;
         if ($request->hasFile('image')) {
             $request->validate([
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
