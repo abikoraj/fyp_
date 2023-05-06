@@ -14,93 +14,15 @@
             <hr>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="single-feature-box">
-                    <div class="single-feature-data">
-                        <h6>3</h6>
-                        <p>{{ __('open_job') }}</p>
-                    </div>
-                    <div class="single-feature-icon">
-                        <i class="ph ph-suitcase-simple"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="single-feature-box">
-                    <div class="single-feature-data">
-                        <h6>2</h6>
-                        <p>{{ __('saved_candidate') }}</p>
-                    </div>
-                    <div class="single-feature-icon">
-                        <i class="ph ph-identification-card"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6">
-                <div class="single-feature-box bg-danger-50">
-                    <div class="single-feature-data">
-                        <h6>5</h6>
-                        <p>{{ __('pending_jobs') }}</p>
-                    </div>
-                    <div class="single-feature-icon">
-                        <i class="ph ph-suitcase-simple text-danger-500"></i>
-                    </div>
-                </div>
-            </div>
+            @include('layouts.userCounter')
         </div>
         <div class="row">
-            {{-- <h5>remain</h5> --}}
-            <h3 class="f-size-16">Remaining </h3>
-
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="single-feature-box bg-success-50">
-                    <div class="single-feature-data">
-                        <h6>15</h6>
-                        <p>{{ __('active_jobs') }}</p>
-                    </div>
-                    <div class="single-feature-icon">
-                        <i class="ph ph-suitcase-simple text-success-500"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="single-feature-box bg-warning-50">
-                    <div class="single-feature-data">
-                        <h6>2</h6>
-                        <p>{{ __('highlight_jobs') }}</p>
-                    </div>
-                    <div class="single-feature-icon">
-                        <i class="ph ph-shield-star text-warning-500"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="single-feature-box">
-                    <div class="single-feature-data">
-                        <h6>5</h6>
-                        <p>{{ __('featured_jobs') }}</p>
-                    </div>
-                    <div class="single-feature-icon">
-                        <i class="ph ph-circle-wavy-check text-primary-500"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-6">
-                <div class="single-feature-box bg-danger-50">
-                    <div class="single-feature-data">
-                        <h6>10</h6>
-                        <p>{{ __('profile_view') }}</p>
-                    </div>
-                    <div class="single-feature-icon">
-                        <i class="ph ph-users-four text-danger-500"></i>
-                    </div>
-                </div>
-            </div>
+            @include('layouts.donationCounter')
         </div>
         <div class="recently-applied-wrap d-flex justify-content-between align-items-center rt-mb-15">
-            <h3 class="f-size-16">{{ __('recent_jobs') }}</h3>
+            <h3 class="f-size-16">My Recent Donations</h3>
             <a class="view-all text-gray-500 f-size-16 d-flex align-items-center" href="">
-                {{ __('view_all') }}
+                View All
                 <i class="ph ph-arrow-right f-size-20 rt-ml-8"></i>
             </a>
         </div>
@@ -255,10 +177,3 @@
         </div>
     </div>
 @endsection
-{{-- <h1>
-    {{ Auth::user()->name }}
-    <br>
-    This is Donor Dashboard.
-    <br>
-    <a href="{{ route('donor.logout') }}">Logout</a>
-</h1> --}}

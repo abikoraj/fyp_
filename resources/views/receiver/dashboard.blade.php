@@ -3,21 +3,23 @@
     Receiver Dashboard
 @endsection
 @section('content')
-    <div class="dashboard-right">
-        <div class="dashboard-right-header">
-            <div class="left-text">
-                <h5>{{ __('Hello') }}, {{ Auth::user()->name }}</h5>
-            </div>
-            <span class="sidebar-open-nav">
+    <div class="dashboard-right pt-0">
+        <div class="dashboard-right-header pt-2">
+            <div class="fs-4 ft-wt-5 ps-3 justify-content-center text-muted">Dashboard</div>
+            <span class="sidebar-open-nav m-2">
                 <i class="ph ph-list"></i>
             </span>
         </div>
+        <div class="devider">
+            <hr>
+        </div>
         <div class="row">
+            <h3 class="f-size-16">Users</h3>
             <div class="col-xl-4 col-lg-6 col-md-6">
                 <div class="single-feature-box">
                     <div class="single-feature-data">
                         <h6>3</h6>
-                        <p>{{ __('open_job') }}</p>
+                        <p>Donors</p>
                     </div>
                     <div class="single-feature-icon">
                         <i class="ph ph-suitcase-simple"></i>
@@ -28,7 +30,7 @@
                 <div class="single-feature-box">
                     <div class="single-feature-data">
                         <h6>2</h6>
-                        <p>{{ __('saved_candidate') }}</p>
+                        <p>Receivers</p>
                     </div>
                     <div class="single-feature-icon">
                         <i class="ph ph-identification-card"></i>
@@ -39,7 +41,7 @@
                 <div class="single-feature-box bg-danger-50">
                     <div class="single-feature-data">
                         <h6>5</h6>
-                        <p>{{ __('pending_jobs') }}</p>
+                        <p>Total Users</p>
                     </div>
                     <div class="single-feature-icon">
                         <i class="ph ph-suitcase-simple text-danger-500"></i>
@@ -48,7 +50,7 @@
             </div>
         </div>
         <div class="row">
-            <h5>@lang('remaining_features_on_current_plan')</h5>
+            <h3 class="f-size-16">Remaining </h3>
             <div class="col-xl-3 col-lg-6 col-md-6">
                 <div class="single-feature-box bg-success-50">
                     <div class="single-feature-data">

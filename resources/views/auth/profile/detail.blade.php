@@ -6,7 +6,7 @@
 @section('content')
     <div class="single-page-banner">
         <div class="dashboard-right-header pt-2">
-            <div class="fs-4 ft-wt-5 ps-3 justify-content-center text-muted">My Profile</div>
+            <div class="fs-4 ft-wt-5 ps-3 justify-content-center text-muted">{{ $profile->user->name }} Profile</div>
             <span class="sidebar-open-nav m-2">
                 <i class="ph ph-list"></i>
             </span>
@@ -17,14 +17,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
-                    @if ($profile->cover_image)
-                        <div class="pgae-bg bgprefix-cover page-bg-radius"
-                            style="background-image: url('{{ asset($profile->cover_image) }}');"></div>
-                    @else
-                        <div class="pgae-bg bgprefix-cover page-bg-radius"
-                            style="background-image: url('{{ asset('assets/front/images/banner.jfif') }}');"></div>
-                    @endif
-
+                    <div class="pgae-bg bgprefix-cover page-bg-radius"
+                        style="background-image: url('{{ asset($profile->cover_image ?? 'assets/front/images/banner.jfif' ) }}');">
+                    </div>
                     <div
                         class="card jobcardStyle1 hover:bg-transparent hover-shadow:none body-24 hover:border-transparent border border-gray-50">
                         <div class="card-body">
@@ -51,6 +46,9 @@
                                                     @elseif ($profile->type == 2)
                                                         - Secondary Receiver
                                                     @endif
+                                                @endif
+                                                @if ($profile->user->role == 2)
+                                                    &nbsp;- Donor
                                                 @endif
                                             </p>
                                         </div>
@@ -232,15 +230,15 @@
     </div>
     <div class="rt-spacer-100 rt-spacer-md-50"></div>
 
-    @if (Auth::user()->role == 2)
+    @if ($profile->user->role == 2)
     <hr class="hr-0">
     <section class="related-jobs-area rt-pt-50" id="open_position">
         <div class="recently-applied-wrap d-flex justify-content-between align-items-center rt-mb-15">
-            <h3 class="f-size-16">Recent Donation</h3>
-            <a class="view-all text-gray-500 f-size-16 d-flex align-items-center" href="{{ route('donation.mydonation') }}">
+            <h3 class="f-size-16">Donation Histroy</h3>
+            {{-- <a class="view-all text-gray-500 f-size-16 d-flex align-items-center" href="{{ route('donation.mydonation') }}">
                 View All
                 <i class="ph ph-arrow-right f-size-20 rt-ml-8"></i>
-            </a>
+            </a> --}}
         </div>
         <div class="db-job-card-table">
             <table>

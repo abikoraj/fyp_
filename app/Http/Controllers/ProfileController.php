@@ -138,5 +138,12 @@ class ProfileController extends Controller
         return view('admin.user.receiver', compact('profiles'));
     }
 
+    public function userProfile($id)
+    {
+        $profile = Profile::find($id);
+        $latest_donation = Donation::where('user_id', $id)->where('hidden', false)->latest()->get();
+        return view('auth.profile.detail', compact('profile','latest_donation'));
+    }
+
 
 }

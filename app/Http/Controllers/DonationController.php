@@ -59,7 +59,7 @@ class DonationController extends Controller
     public function myDonation()
     {
         $all = Donation::where('user_id', Auth::user()->id)->where('hidden', false)->orderBy('created_at', 'desc')->get();
-        $active = Donation::where('user_id', Auth::user()->id)->whereIn('status', [0, 1, 2])->where('hidden', false)->where('approval', 1)->orderBy('created_at', 'desc')->get();
+        $active = Donation::where('user_id', Auth::user()->id)->where('status', [0, 1, 2])->where('hidden', false)->where('approval', 1)->orderBy('created_at', 'desc')->get();
         $closed = Donation::where('user_id', Auth::user()->id)->where('status', [3, 4])->where('hidden', false)->where('approval', 1)->orderBy('created_at', 'desc')->get();
         $hidden = Donation::where('user_id', Auth::user()->id)->where('hidden', true)->orderBy('created_at', 'desc')->get();
         return view('donation.mydonation', compact('all', 'active', 'closed', 'hidden'));
@@ -168,7 +168,7 @@ class DonationController extends Controller
                        sin( radians( latitude ) )
                      )
             ) AS distance', [$latitude, $longitude, $latitude])
-            ->where('status', [0, 1, 2])
+            ->where('status', '<>', 4)
             ->where('hidden', false)
             ->havingRaw("distance <= ?", [$radius])
             ->orderBy('distance', 'asc')
@@ -180,5 +180,11 @@ class DonationController extends Controller
         // $longitude = $profile->longitude;
 
         return view('receiver.nearme', compact('donations'));
+    }
+    public function nearMeDetails($id)
+    {
+        $donation = Donation::findOrFail($id);
+        $profile = Profile::where('user_id', $donation->user_id)->first();
+        return view('receiver.nearmeDetails', compact('donation', 'profile'));
     }
 }

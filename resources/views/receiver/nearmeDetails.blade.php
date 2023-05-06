@@ -33,7 +33,8 @@
                                     <div class="post-info2">
                                         <div class="post-main-title2">
                                             <a href="#">{{ Str::limit($donation->name, 36, '...') }}</a>
-                                            <span class="info-tools text-gray-600" style="font-size: 0.9rem;">{{ $donation->created_at->diffForHumans() }}</span>
+                                            <span class="info-tools text-gray-600"
+                                                style="font-size: 0.9rem;">{{ $donation->created_at->diffForHumans() }}</span>
                                             @switch($donation->status)
                                                 @case(0)
                                                     <span class="badge rounded-pill bg-primary text-white">Fresh</span>
@@ -61,13 +62,13 @@
                                         </div>
                                         <div class="body-font-3 text-gray-600 pt-2">
                                             @if ($donation->contact)
-                                                <a class="info-tools" href="tel:{{$donation->contact}}">
+                                                <a class="info-tools" href="tel:{{ $donation->contact }}">
                                                     <span><i class="ph ph-phone text-primary-500"></i></span>
                                                     <span class="text-gray-600">{{ $donation->contact }}</span>
                                                 </a>
                                             @endif
                                             @if ($profile->email)
-                                                <a class="info-tools" href="mailto:{{$profile->email}}">
+                                                <a class="info-tools" href="mailto:{{ $profile->email }}">
                                                     <span><i class="ph ph-envelope-simple text-primary-500"></i></span>
                                                     <span class="text-gray-600">{{ $profile->email }}</span>
                                                 </a>
@@ -79,82 +80,53 @@
                                 <div class="iconbox-extra align-self-center flex-md-row flex-column">
 
                                     <div>
-                                        {{-- @if (Auth::user()->role == 1)
-                                            <span class="d-block rt-pt-10 text-lg-end text-start f-size-14 text-gray-700 ">
-                                                Expires At:
-                                                <span class="text-danger-500">
-                                                    {{ $donation->expires_at }}
-                                                </span>
+                                        <span class="d-block rt-pt-10 text-lg-end text-start f-size-14 text-gray-700 ">
+                                            Expires At:
+                                            <span class="text-danger-500">
+                                                {{ $donation->expires_at }}
                                             </span>
-                                            <button class="btn btn-primary btn-lg d-block">
-                                                <span class="button-content-wrapper ">
-                                                    <span class="button-icon align-icon-right"><i
-                                                            class="ph-arrow-right"></i></span>
-                                                    <span class="button-text">Apply Now</span>
-                                                </span>
-                                            </button>
-                                        @endif --}}
-                                        @if ($donation->user_id == Auth::user()->id)
-                                            <div class="db-job-btn-wrap d-flex justify-content-end">
-
-                                                <button type="button" class="btn btn-outline-primary"
-                                                    id="dropdownMenuButton5" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    Action
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end company-dashboard-dropdown"
-                                                    aria-labelledby="dropdownMenuButton5">
-                                                    @if ($donation->status == 0 || $donation->status == 1)
-                                                        <li>
-                                                            <form action="{{ route('donation.status', $donation->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                <button class="dropdown-item" type="submit">
-                                                                    <input type="hidden" name="status" value=2>
-                                                                    Mark as Expired
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    @endif
-                                                    @if ($donation->status != 3 && $donation->status != 4)
-                                                        <li>
-                                                            <form action="{{ route('donation.status', $donation->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                <button class="dropdown-item" type="submit">
-                                                                    <input type="hidden" name="status" value=3>
-                                                                    Mark as Wasted
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                        <li>
-                                                            <form action="{{ route('donation.status', $donation->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                <button class="dropdown-item" type="submit">
-                                                                    <input type="hidden" name="status" value=4>
-                                                                    Mark as Complete
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    @endif
-                                                    @if ($donation->status == 0)
-                                                        <li>
-                                                            <form action="{{ route('donation.hide', $donation->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                {{-- <input type="hidden" name="hidden" value="true"> --}}
-                                                                <button class="dropdown-item" type="submit">
-                                                                    Hide Donation
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                    @endif
-                                                </ul>
-                                            </div>
+                                        </span>
+                                        @if (Auth::user()->role == 1)
+                                            @if ($donation->status == 0 && Auth::user()->profile->type == 1)
+                                                <form action="{{ route('receiver.donation.request', $donation->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-primary btn-lg d-block" type="submit"
+                                                        onclick="return confirm('Are you sure you want to request for this donation?');">
+                                                        <span class="button-content-wrapper ">
+                                                            <span class="button-text">Request</span>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            @if ($donation->status == 2 && Auth::user()->profile->type == 2)
+                                                <form action="{{ route('receiver.donation.request', $donation->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-primary btn-lg d-block" type="submit"
+                                                        onclick="return confirm('Are you sure you want to request for this donation?');">
+                                                        <span class="button-content-wrapper ">
+                                                            <span class="button-text">Request</span>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @endif
+                                        @if ($donation->receiver_id)
+                                            @if ($donation->status == 1 && $donation->receiver_id == Auth::user()->id)
+                                                <form action="{{ route('receiver.donation.cancel', $donation->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-danger btn-lg d-block" type="submit"
+                                                        onclick="return confirm('Are you sure you want to cancel your request?');">
+                                                        <span class="button-content-wrapper ">
+                                                            <span class="button-text">Cancel Request</span>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         @endif
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -281,9 +253,6 @@
                                         <a href="{{ route('user.profile.details', $profile->id) }}"
                                             class="f-size-20 text-gray-900 ft-wt-5 rt-mb-6">{{ $profile->user->name }}
                                         </a>
-                                        {{-- <div class="d-block text-gray-500 f-size-14">
-                                            {{ $job->company->organization_type ? $job->company->organization_type->name : '' }}
-                                        </div> --}}
                                     </div>
                                 </div>
 
@@ -300,7 +269,7 @@
                             <div class="devider">
                                 <hr>
                             </div>
-                        {{-- </div>
+                            {{-- </div>
                         <div class="sidebar-widget"> --}}
                             <div class="contact">
                                 <h2 class="title">

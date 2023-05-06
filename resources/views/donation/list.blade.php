@@ -11,7 +11,7 @@
                                     <img src="{{ asset($donation->image ?? 'assets/front/images/default.jpg') }}"
                                         alt="" draggable="false">
                                 </a>
-                                <a href="{{ route('donation.details', $donation->id) }}" class="iconbox-content">
+                                <a href="{{ route('receiver.donations.nearme.details', $donation->id) }}" class="iconbox-content">
                                     <div class="post-info2">
 
                                         <div class="post-main-title">
@@ -67,27 +67,13 @@
                                 </a>
                                 <div class="iconbox-extra align-self-center">
                                     <div>
-                                        @if ($donation->status == 0  && Auth::user()->profile->type == 1)
-                                            <button type="button" class="btn btn-primary2-50">
-                                                <span class="button-content-wrapper ">
-                                                    <span class="button-icon align-icon-right"><i
-                                                            class="ph ph-arrow-right"></i></span>
-                                                    <span class="button-text">Interested</span>
-                                                </span>
-                                            </button>
-                                        @endif
-                                        @if ($donation->status == 0 && Auth::user()->profile->type == 2)
-                                            <button type="button" class="btn btn-primary2-50">
-                                                <span class="button-content-wrapper ">
-                                                    <span class="button-icon align-icon-right"><i
-                                                            class="ph ph-arrow-right"></i></span>
-                                                    <span class="button-text">Interested</span>
-                                                </span>
-                                            </button>
-                                        @endif
-                                        {{-- <button type="button"
-                                            onclick="applyJobb({{ $job->id }}, '{{ $job->title }}')"
-                                            class="btn btn-primary2-50"> --}}
+                                        <a href="{{ route('receiver.donations.nearme.details', $donation->id) }}" type="button" class="btn btn-primary2-50">
+                                            <span class="button-content-wrapper ">
+                                                <span class="button-icon align-icon-right"><i
+                                                        class="ph ph-arrow-right"></i></span>
+                                                <span class="button-text">View</span>
+                                            </span>
+                                        </a>
 
                                     </div>
                                 </div>

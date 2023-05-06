@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\DonationRequestController;
 use App\Http\Controllers\FoodCategoryController;
 use App\Http\Controllers\OrganizationTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,17 +90,25 @@ Route::middleware(['role:0'])->group(function () {
     });
 });
 
+
+// Receiver Routes
 Route::middleware(['role:1'])->group(function () {
     Route::prefix('receiver')->name('receiver.')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('receiver.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [UserController::class, 'receiverDashboard'])->name('dashboard');
         Route::get('/logout', [UserController::class, 'logout'])->name('logout');
         Route::get('/donations', [DonationController::class, 'listDonations'])->name('donations');
         Route::get('/donations-near-me', [DonationController::class, 'nearMe'])->name('donations.nearme');
+        Route::get('/donations-near-me/{id}', [DonationController::class, 'nearMeDetails'])->name('donations.nearme.details');
+        Route::post('/request/{id}', [DonationRequestController::class, 'request'])->name('donation.request');
+        Route::post('/cancel/{id}', [DonationRequestController::class, 'cancel'])->name('donation.cancel');
+
+        Route::get('/requested-donations', [DonationRequestController::class, 'requestedDonation'])->name('donations.requested');
+        Route::get('/received-donations', [DonationRequestController::class, 'receivedDonation'])->name('donations.received');
     });
 });
 
+
+// Donor Routes
 Route::middleware(['role:2'])->group(function () {
     Route::prefix('donor')->name('donor.')->group(function () {
         Route::view('/dashboard', 'donor.dashboard')->name('dashboard');
@@ -129,6 +139,7 @@ Route::middleware(['role:1|2'])->group(function () {
         Route::get('/edit/{id}', [ProfileController::class, 'edit'])->name('edit');
         Route::post('/update', [ProfileController::class, 'update'])->name('update');
     });
+    Route::get('/user/profile/{id}', [ProfileController::class, 'userProfile'])->name('user.profile.details');
 
     Route::get('donation/details/{id}', [DonationController::class, 'details'])->name('donation.details');
 

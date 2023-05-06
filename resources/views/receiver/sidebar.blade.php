@@ -54,15 +54,15 @@
                 </span>
             </a>
         </li>
-        {{-- <li>
+        <li>
             <a class=""
-                href="{{ route('receiver.dashboard') }}">
+                href="{{ route('receiver.donations.requested') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph ph-bookmark-simple"></i>
+                        <i class="ph ph-hand-palm"></i>
                     </span>
                     <span class="button-text">
-                        Favorite Jobs
+                        Requested Donations
                     </span>
                 </span>
             </a>
@@ -72,27 +72,14 @@
                 href="{{ route('receiver.dashboard') }}">
                 <span class="button-content-wrapper ">
                     <span class="button-icon align-icon-left">
-                        <i class="ph ph-bell-ringing"></i>
+                        <i class="ph ph-hand-coins"></i>
                     </span>
                     <span class="button-text">
-                        Job Alert
+                        Received Donations
                     </span>
                 </span>
             </a>
         </li>
-        <li>
-            <a class=""
-                href="{{ route('receiver.dashboard') }}">
-                <span class="button-content-wrapper ">
-                    <span class="button-icon align-icon-left">
-                        <i class="ph ph-gear"></i>
-                    </span>
-                    <span class="button-text">
-                        Settings
-                    </span>
-                </span>
-            </a>
-        </li> --}}
         <li>
             <a class="{{ request()->routeIs('receiver.logout') ? 'active' : '' }}" href="{{ route('receiver.logout') }}">
                 <span class="button-content-wrapper ">
