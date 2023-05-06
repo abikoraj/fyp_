@@ -111,7 +111,7 @@ Route::middleware(['role:1'])->group(function () {
 // Donor Routes
 Route::middleware(['role:2'])->group(function () {
     Route::prefix('donor')->name('donor.')->group(function () {
-        Route::view('/dashboard', 'donor.dashboard')->name('dashboard');
+        Route::get('/dashboard', [UserController::class, 'donorDashboard'])->name('dashboard');
         Route::view('/abc', 'welcome');
         Route::get('/logout', [UserController::class, 'logout'])->name('logout');
         Route::view('/profile', 'donor.profile')->name('profile');
