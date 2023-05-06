@@ -13,6 +13,23 @@ use Twilio\Rest\Client;
 
 class UserController extends Controller
 {
+    public function dashboard()
+    {
+        // $receiver_count = User::where('role', 1)->where('isVerified', true)->count();
+        $donor_count = User::where('role', 2)->where('isVerified', true)->count();
+        $receiver_count = User::where('role', 1)->where('isVerified', true)->count();
+        $user_count = $donor_count + $receiver_count;
+        $unverified_count = User::where('isVerified', false)->count();
+
+        $donation_count = Donation::where('hidden', false)->count();
+        $active_count = Donation::where('hidden', false)->where('status', [0, 1, 2])->where('approval', 1)->count();
+        $pending_count = Donation::where('hidden', false)->where('approval', 0)->count();
+        $wasted_count = Donation::where('hidden', false)->where('status', 3)->count();
+
+        $users = User::where('isVerified', true)->take(5)->latest()->get();
+        return view('admin.dashboard', compact('users', 'receiver_count', 'donor_count', 'user_count', 'unverified_count', 'donation_count', 'active_count', 'pending_count', 'wasted_count'));
+    }
+
     public function login(Request $request)
     {
         if ($request->getMethod() == "POST") {
@@ -175,8 +192,6 @@ class UserController extends Controller
         return view('admin.user.unverified', compact('users'));
     }
 
-
-
     public function delete($id)
     {
         $user = User::find($id);
@@ -194,9 +209,4 @@ class UserController extends Controller
         // $profile = Profile::where('user_id', $id)->first();
         return view('admin.user.details', compact('user'));
     }
-
-    public function receiverHome(){
-
-    }
-
 }

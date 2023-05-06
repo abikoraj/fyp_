@@ -22,7 +22,7 @@
                 <div class="text-center">
                     <img src="{{ asset('assets/authfile/images/logo.png') }}" alt="wrapkit">
                 </div>
-                <h2 class="mt-3 text-center">Sign In</h2>
+                <h2 class="mt-3 text-center">Login</h2>
                 <p class="text-center">Enter your phone number and password to Login.</p>
                 <form action="{{ route('login') }}" method="POST" class="mt-4">
                     @csrf

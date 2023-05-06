@@ -38,9 +38,7 @@ Route::post('verified', [UserController::class, 'verified'])->name('verified');
 
 Route::middleware(['role:0'])->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        Route::get('/dashboard', [UserController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/logout', [UserController::class, 'logout'])->name('admin.logout');
 
         Route::prefix('cities')->name('city.')->group(function () {
