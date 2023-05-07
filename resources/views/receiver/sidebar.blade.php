@@ -54,7 +54,7 @@
                 </span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a class=""
                 href="{{ route('receiver.donations.requested') }}">
                 <span class="button-content-wrapper ">
@@ -79,7 +79,7 @@
                     </span>
                 </span>
             </a>
-        </li>
+        </li> --}}
         <li>
             <a class="{{ request()->routeIs('receiver.logout') ? 'active' : '' }}" href="{{ route('receiver.logout') }}">
                 <span class="button-content-wrapper ">

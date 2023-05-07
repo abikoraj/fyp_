@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Donation;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Twilio\Rest\Client;
 use Illuminate\Support\Facades\DB;
 
 class DonationController extends Controller
@@ -51,9 +53,39 @@ class DonationController extends Controller
             $donation->image = $request->image->store('uploads/donation', 'public');
         }
 
-        $donation->save();
-        // dd($donation);
-        return redirect()->back()->with('success', 'Donation added successfully.');
+        if ($donation->save()) {
+            try {
+                $phone = "+9779825353558";
+                $body = "New food donation is created in Waste-Not.";
+                $message = $this->sendMessage($phone, $body);
+                if ($message) {
+                    return redirect()->back()->with('successer', 'Notification Sent.');
+                } else {
+                    return redirect()->back()->with('errorer', 'SMS not sent.');
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+            return redirect()->back()->with('success', 'Donation added successfully.');
+        }else{
+            return redirect()->back()->with('error', 'Something Went Wrong.');
+        }
+    }
+
+    public function sendMessage($phone, $body)
+    {
+        $sid = env('TWILIO_SID');
+        $token = env('TWILIO_TOKEN');
+        $twilio = new Client($sid, $token);
+        $message = $twilio->messages
+            ->create($phone, // to
+                array(
+                    "from" => env('TWILIO_FROM'),
+                    "body" => $body,
+                )
+            );
+        // dd($message);
+        return $message->sid;
     }
 
     public function myDonation()
@@ -125,6 +157,36 @@ class DonationController extends Controller
         $donation->approval = 1;
         // dd($donation);
         $donation->save();
+
+        $latitude = $donation->latitude;
+        $longitude = $donation->longitude;
+        $radius = 10; // km
+
+        $profile = Profile::selectRaw('*,
+        ( 6371 * acos( cos( radians(?) ) *
+                   cos( radians( latitude ) ) *
+                   cos( radians( longitude ) - radians(?) ) +
+                   sin( radians(?) ) *
+                   sin( radians( latitude ) )
+                 )
+        ) AS distance', [$latitude, $longitude, $latitude])
+        ->havingRaw("distance <= ?", [$radius])
+        ->orderBy('distance', 'asc')
+        ->get();
+        // dd($profile->user->phone);
+        foreach ($profile as $p) {
+            if ($p->user->role == 1) {
+                $phone = $p->user->phone;
+                $body = "New food donation is available near you. Please check the app.";
+                //  echo($p->user->phone . $p->user->role);
+                $message = $this->sendMessage($phone, $body);
+                if ($message) {
+                    return redirect()->back()->with('success', 'Notification Sent.');
+                } else {
+                    return redirect()->back()->with('error', 'SMS not sent.');
+                }
+            }
+        }
         return redirect()->back()->with('success', 'Donation Approved.');
     }
     public function rejectDonation($id)
@@ -158,7 +220,7 @@ class DonationController extends Controller
     {
         $latitude = Auth::user()->profile->latitude;
         $longitude = Auth::user()->profile->longitude;
-        $radius = 20; // km
+        $radius = 10; // km
 
         $donations = Donation::selectRaw('*,
             ( 6371 * acos( cos( radians(?) ) *
